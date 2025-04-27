@@ -1,5 +1,5 @@
 'use client'
-import NavbarSidebar from '@/app/(home)/navbar-sidebar'
+import NavbarSidebar from '@/app/(app)/(home)/navbar-sidebar'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { MenuIcon } from 'lucide-react'
@@ -45,7 +45,7 @@ export default function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   return (
     <nav className={'h-20 flex border-b justify-between font-medium bg-white'}>
-      <Link href={'/'} className={'pl-6 flex items-center'}>
+      <Link href={'/public'} className={'pl-6 flex items-center'}>
         <span className={cn('text-5xl font-semibold', poppins.className)}>
           funroad
         </span>
