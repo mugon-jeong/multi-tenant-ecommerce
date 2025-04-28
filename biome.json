@@ -45,7 +45,8 @@
       "correctness": {
         "noUnusedVariables": "error",
         "noUndeclaredVariables": "error",
-        "useExhaustiveDependencies": "error"
+        "useExhaustiveDependencies": "error",
+        "noUnusedImports": "error"
       },
       "suspicious": {
         "noExplicitAny": "error",
