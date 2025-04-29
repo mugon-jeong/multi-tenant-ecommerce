@@ -1,22 +1,19 @@
 'use client'
 import SubcategoryMenu from '@/app/(app)/(home)/search-filters/subcategory-menu'
 import { useDropdownPosition } from '@/app/(app)/(home)/search-filters/use-dropdown-position'
+import type { CustomCategory } from '@/app/(app)/(home)/types'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import type { Category } from '@/payload-types'
+import Link from 'next/link'
 import { useRef, useState } from 'react'
 
 interface Props {
-  category: Category
+  category: CustomCategory
   isActive?: boolean
   isNavigationHovered?: boolean
 }
 
-export default function CategoryDropdown({
-  category,
-  isNavigationHovered,
-  isActive,
-}: Props) {
+export default function CategoryDropdown({ category, isNavigationHovered, isActive }: Props) {
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
   const { getDropdownPosition } = useDropdownPosition(dropdownRef)
@@ -29,21 +26,18 @@ export default function CategoryDropdown({
 
   const dropdownPosition = getDropdownPosition()
   return (
-    <div
-      className={'relative'}
-      ref={dropdownRef}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-    >
+    <div className={'relative'} ref={dropdownRef} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       <div className={'relative'}>
         <Button
           variant={'elevated'}
           className={cn(
             'h-11 px-4 bg-transparent border-transparent rounded-full hover:bg-white hover:border-primary text-black',
-            isActive && !isNavigationHovered && 'bg-white border-primary'
+            isActive && !isNavigationHovered && 'bg-white border-primary',
+            isOpen &&
+              'bg-white border-primary shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] -translate-x-[4px] -translate-y-[4px]'
           )}
         >
-          {category.name}
+          <Link href={`/${category.slug === 'all' ? '' : category.slug}`}>{category.name}</Link>
         </Button>
         {category.subcategories && category.subcategories.length > 0 && (
           <div
@@ -54,11 +48,7 @@ export default function CategoryDropdown({
           />
         )}
       </div>
-      <SubcategoryMenu
-        category={category}
-        isOpen={isOpen}
-        position={dropdownPosition}
-      />
+      <SubcategoryMenu category={category} isOpen={isOpen} position={dropdownPosition} />
     </div>
   )
 }

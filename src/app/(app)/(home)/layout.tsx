@@ -1,6 +1,7 @@
 import Footer from '@/app/(app)/(home)/footer'
 import Navbar from '@/app/(app)/(home)/navbar'
 import SearchFilters from '@/app/(app)/(home)/search-filters'
+import type { CustomCategory } from '@/app/(app)/(home)/types'
 import type { Category } from '@/payload-types'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
@@ -23,9 +24,10 @@ export default async function Layout({ children }: Props) {
         exists: false,
       },
     },
+    sort: 'name',
   })
 
-  const formattedData = data.docs.map((doc) => ({
+  const formattedData: CustomCategory[] = data.docs.map((doc) => ({
     ...doc,
     subcategories: (doc.subcategories?.docs || []).map((sub) => ({
       // Because of 'depth:1' we are confident "doc" will be a type of "Category"
