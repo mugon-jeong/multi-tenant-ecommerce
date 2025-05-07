@@ -1,14 +1,14 @@
 'use client'
 import SubcategoryMenu from '@/app/(app)/(home)/search-filters/subcategory-menu'
 import { useDropdownPosition } from '@/app/(app)/(home)/search-filters/use-dropdown-position'
-import type { CustomCategory } from '@/app/(app)/(home)/types'
+import type { CategoriesGetManyOutputSingle } from '@/app/modules/categories/types'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import { useRef, useState } from 'react'
 
 interface Props {
-  category: CustomCategory
+  category: CategoriesGetManyOutputSingle
   isActive?: boolean
   isNavigationHovered?: boolean
 }
