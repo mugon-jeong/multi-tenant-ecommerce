@@ -46,22 +46,12 @@ export default function Navbar() {
   return (
     <nav className={'h-20 flex border-b justify-between font-medium bg-white'}>
       <Link href={'/public'} className={'pl-6 flex items-center'}>
-        <span className={cn('text-5xl font-semibold', poppins.className)}>
-          funroad
-        </span>
+        <span className={cn('text-5xl font-semibold', poppins.className)}>funroad</span>
       </Link>
-      <NavbarSidebar
-        items={navbarItems}
-        open={isSidebarOpen}
-        onOpenChange={setIsSidebarOpen}
-      />
+      <NavbarSidebar items={navbarItems} open={isSidebarOpen} onOpenChange={setIsSidebarOpen} />
       <div className={'items-center gap-4 hidden lg:flex md:gap-0'}>
         {navbarItems.map((item) => (
-          <NavbarItem
-            key={item.href}
-            href={item.href}
-            isActive={pathname === item.href}
-          >
+          <NavbarItem key={item.href} href={item.href} isActive={pathname === item.href}>
             {item.children}
           </NavbarItem>
         ))}
@@ -74,7 +64,9 @@ export default function Navbar() {
             'border-l border-t-0 border-b-0 border-r-0 px-12 h-full bg-white hover:bg-pink-400 transition-colors text-lg'
           }
         >
-          <Link href={'/sign-in'}>Log in</Link>
+          <Link prefetch href={'/sign-in'}>
+            Log in
+          </Link>
         </Button>
         <Button
           asChild
@@ -82,7 +74,9 @@ export default function Navbar() {
             'border-l border-t-0 border-b-0 border-r-0 px-12 h-full bg-black  text-white hover:bg-pink-400 hover:text-black transition-colors text-lg'
           }
         >
-          <Link href={'/sign-up'}>Start selling</Link>
+          <Link prefetch href={'/sign-up'}>
+            Start selling
+          </Link>
         </Button>
       </div>
       <div className={'flex lg:hidden items-center justify-center'}>
