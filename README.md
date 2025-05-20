@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## ✨ 주요 기능
+- **🏬 다중 테넌트 아키텍처**: 하나의 플랫폼에서 여러 판매자 지원
+- **🌐 판매자 서브도메인**: 각 판매자를 위한 고유 서브도메인 제공
+- **🎨 맞춤형 상점 디자인**: 판매자별 브랜딩 및 스토어프론트 커스터마이징
+- **💰 자동 플랫폼 수수료**: 플랫폼 수수료 자동 계산 및 처리
+- **⭐ 상품 평가 및 리뷰**: 사용자 피드백 시스템
+- **📚 구매 라이브러리**: 사용자별 구매 내역 관리
+- **🧑‍💼 역할 기반 접근 제어**: 관리자, 판매자, 사용자 권한 관리
+- **🛠️ 관리자 대시보드**: 플랫폼 관리를 위한 종합 도구
+- **🧾 판매자 대시보드**: 판매자를 위한 상품 및 주문 관리
+- **🗂️ 카테고리 및 상품 필터링**: 효율적인 상품 탐색
+- **🔍 검색 기능**: 빠른 상품 검색
+- **🖼️ 이미지 업로드 지원**: 상품 이미지 관리
 
-## Getting Started
+## 🛠️ 기술 스택
+### 프론트엔드
+- **⚙️ Next.js 15**: 고성능 React 프레임워크
+- **🎨 TailwindCSS V4**: 유틸리티 우선 CSS 프레임워크
+- **💅 ShadcnUI**: 스타일링 컴포넌트 라이브러리
+- **🚀 React 19**: 최신 React 버전
+- **📊 Recharts**: 데이터 시각화 라이브러리
+- **🎠 Embla Carousel**: 캐러셀 컴포넌트
+- **🌙 next-themes**: 다크/라이트 테마 지원
 
-First, run the development server:
+### 백엔드
+- **🧱 Payload CMS**: 헤드리스 CMS 플랫폼
+- **📦 MongoDB**: 데이터베이스 (via @payloadcms/db-mongodb)
+- **🔄 TanStack Query**: 서버 상태 관리
+- **🛣️ tRPC**: 타입 안전한 API 통합
+- **✅ Zod**: 스키마 검증
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 유틸리티
+- **📝 React Hook Form**: 폼 관리
+- **⚡ Sonner**: 토스트 알림
+- **📅 date-fns**: 날짜 처리
+- **🔐 TypeScript**: 타입 안전성
