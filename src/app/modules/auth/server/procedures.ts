@@ -1,17 +1,13 @@
-import { AUTH_COOKIE } from '@/app/modules/auth/constants'
 import { loginSchema, registerSchema } from '@/app/modules/auth/schemas'
+import { generateAuthCookie } from '@/app/modules/auth/utils'
 import { baseProcedure, createTRPCRouter } from '@/trpc/init'
 import { TRPCError } from '@trpc/server'
-import { cookies as getCookies, headers as getHeaders } from 'next/headers'
+import { headers as getHeaders } from 'next/headers'
 
 export const authRouter = createTRPCRouter({
   session: baseProcedure.query(async ({ ctx }) => {
     const headers = await getHeaders()
     return await ctx.db.auth({ headers })
-  }),
-  logout: baseProcedure.mutation(async () => {
-    const cookies = await getCookies()
-    cookies.delete(AUTH_COOKIE)
   }),
   register: baseProcedure.input(registerSchema).mutation(async ({ input, ctx }) => {
     const existingData = await ctx.db.find({
@@ -51,14 +47,9 @@ export const authRouter = createTRPCRouter({
         message: 'Failed to login',
       })
     }
-    const cookies = await getCookies()
-    cookies.set({
-      name: AUTH_COOKIE,
+    await generateAuthCookie({
+      prefix: ctx.db.config.cookiePrefix,
       value: data.token,
-      httpOnly: true,
-      path: '/',
-      // sameSite: 'none',
-      // domain: '',
     })
   }),
   login: baseProcedure.input(loginSchema).mutation(async ({ input, ctx }) => {
@@ -75,14 +66,9 @@ export const authRouter = createTRPCRouter({
         message: 'Failed to login',
       })
     }
-    const cookies = await getCookies()
-    cookies.set({
-      name: AUTH_COOKIE,
+    await generateAuthCookie({
+      prefix: ctx.db.config.cookiePrefix,
       value: data.token,
-      httpOnly: true,
-      path: '/',
-      // sameSite: 'none',
-      // domain: '',
     })
     return data
   }),
