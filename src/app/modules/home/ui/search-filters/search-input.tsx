@@ -1,5 +1,5 @@
 'use client'
-import { CategoriesSidebar } from '@/app/(app)/(home)/search-filters/categories-sidebar'
+import { CategoriesSidebar } from '@/app/modules/home/ui/search-filters/categories-sidebar'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useTRPC } from '@/trpc/client'

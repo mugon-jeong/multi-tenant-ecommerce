@@ -1,10 +1,10 @@
-import Footer from '@/app/(app)/(home)/footer'
-import Navbar from '@/app/(app)/(home)/navbar'
-import SearchFilters, { SearchFiltersSkeleton } from '@/app/(app)/(home)/search-filters'
+import Footer from '@/app/modules/home/ui/components/footer'
+import Navbar from '@/app/modules/home/ui/components/navbar'
 import { getQueryClient, trpc } from '@/trpc/server'
 import { HydrationBoundary, dehydrate } from '@tanstack/react-query'
 import type React from 'react'
 import { Suspense } from 'react'
+import SearchFilters, { SearchFiltersSkeleton } from '../../modules/home/ui/search-filters'
 
 interface Props {
   children: React.ReactNode
