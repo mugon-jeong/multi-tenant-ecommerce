@@ -1,7 +1,6 @@
 'use client'
 import type { CategoriesGetManyOutputSingle } from '@/app/modules/categories/types'
 import SubcategoryMenu from '@/app/modules/home/ui/search-filters/subcategory-menu'
-import { useDropdownPosition } from '@/app/modules/home/ui/search-filters/use-dropdown-position'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
@@ -16,7 +15,6 @@ interface Props {
 export default function CategoryDropdown({ category, isNavigationHovered, isActive }: Props) {
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
-  const { getDropdownPosition } = useDropdownPosition(dropdownRef)
   const onMouseEnter = () => {
     if (category.subcategories) {
       setIsOpen(true)
@@ -24,7 +22,6 @@ export default function CategoryDropdown({ category, isNavigationHovered, isActi
   }
   const onMouseLeave = () => setIsOpen(false)
 
-  const dropdownPosition = getDropdownPosition()
   return (
     <div className={'relative'} ref={dropdownRef} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       <div className={'relative'}>
@@ -48,7 +45,7 @@ export default function CategoryDropdown({ category, isNavigationHovered, isActi
           />
         )}
       </div>
-      <SubcategoryMenu category={category} isOpen={isOpen} position={dropdownPosition} />
+      <SubcategoryMenu category={category} isOpen={isOpen} />
     </div>
   )
 }

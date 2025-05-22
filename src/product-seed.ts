@@ -42,8 +42,17 @@ const productSeeds = async () => {
     limit: 100,
   })
 
+  const tenants = await payload.find({
+    collection: 'tenants',
+    limit: 100,
+  })
+
   const categoryIds = categories.docs.map((cat) => cat.id)
   const tagIds = tags.docs.map((tag) => tag.id)
+  const tenantIds = tenants.docs.map((tenant) => tenant.id)
+  if (categoryIds.length === 0 || tagIds.length === 0 || tenantIds.length === 0) {
+    throw Error('category or tag or tenant is empty')
+  }
 
   // 제품 이름 템플릿
   const productTemplates: ProductTemplates = {
@@ -191,18 +200,21 @@ const productSeeds = async () => {
       productName = `${categoryName} ${getRandomElement(defaultProducts)}`
     }
 
-    // 제품 생성
-    await payload.create({
-      collection: 'products',
-      data: {
-        name: productName,
-        description: generateDescription(productName, categoryName),
-        price: getRandomPrice(9.99, 199.99),
-        category: categoryId,
-        refundPolicy: getRandomElement(refundPolicies) as RefundPolicy,
-        tags: Array.from({ length: Math.floor(Math.random() * 5) + 1 }, () => getRandomElement(tagIds)),
-      },
-    })
+    for (const tenantId of tenantIds) {
+      // 제품 생성
+      await payload.create({
+        collection: 'products',
+        data: {
+          name: productName,
+          description: generateDescription(productName, categoryName),
+          price: getRandomPrice(9.99, 199.99),
+          category: categoryId,
+          refundPolicy: getRandomElement(refundPolicies) as RefundPolicy,
+          tags: Array.from({ length: Math.floor(Math.random() * 5) + 1 }, () => getRandomElement(tagIds)),
+          tenant: tenantId,
+        },
+      })
+    }
   }
 
   console.log('제품 시드 데이터 생성 완료: 100개 제품이 생성되었습니다.')
