@@ -37,7 +37,13 @@ const productSeeds = async () => {
     limit: 100,
   })
 
+  const tags = await payload.find({
+    collection: 'tags',
+    limit: 100,
+  })
+
   const categoryIds = categories.docs.map((cat) => cat.id)
+  const tagIds = tags.docs.map((tag) => tag.id)
 
   // 제품 이름 템플릿
   const productTemplates: ProductTemplates = {
@@ -194,6 +200,7 @@ const productSeeds = async () => {
         price: getRandomPrice(9.99, 199.99),
         category: categoryId,
         refundPolicy: getRandomElement(refundPolicies) as RefundPolicy,
+        tags: Array.from({ length: Math.floor(Math.random() * 5) + 1 }, () => getRandomElement(tagIds)),
       },
     })
   }

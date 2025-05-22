@@ -7,9 +7,10 @@ import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { buildConfig } from 'payload'
 import sharp from 'sharp'
 
-import { Categories } from '@/collections/Categories'
-import { Products } from '@/collections/Products'
+import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
+import { Products } from './collections/Products'
+import { Tags } from './collections/Tags'
 import { Users } from './collections/Users'
 
 const filename = fileURLToPath(import.meta.url)
@@ -22,7 +23,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Categories, Products],
+  collections: [Users, Media, Categories, Products, Tags],
   // cookiePrefix: 'funroad',
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
