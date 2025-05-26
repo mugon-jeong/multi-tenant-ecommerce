@@ -8,6 +8,7 @@ import { buildConfig } from 'payload'
 import sharp from 'sharp'
 
 import { Tenants } from '@/collections/Tenants'
+import type { Config } from '@/payload-types'
 import { multiTenantPlugin } from '@payloadcms/plugin-multi-tenant'
 import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
@@ -38,7 +39,7 @@ export default buildConfig({
   sharp,
   plugins: [
     payloadCloudPlugin(),
-    multiTenantPlugin({
+    multiTenantPlugin<Config>({
       collections: {
         products: {},
       },
