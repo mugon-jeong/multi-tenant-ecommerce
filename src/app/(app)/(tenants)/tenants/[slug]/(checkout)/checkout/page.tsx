@@ -7,7 +7,7 @@ export default async function Page({ params }: Props) {
   const { slug } = await params
   return (
     <div>
-      <CheckoutView slug={slug} />
+      <CheckoutView tenantSlug={slug} />
     </div>
   )
 }

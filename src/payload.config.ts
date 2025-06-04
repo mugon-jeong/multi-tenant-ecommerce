@@ -7,6 +7,7 @@ import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { buildConfig } from 'payload'
 import sharp from 'sharp'
 
+import { Orders } from '@/collections/Orders'
 import { Tenants } from '@/collections/Tenants'
 import type { Config } from '@/payload-types'
 import { multiTenantPlugin } from '@payloadcms/plugin-multi-tenant'
@@ -26,7 +27,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Categories, Products, Tags, Tenants],
+  collections: [Users, Media, Categories, Products, Tags, Tenants, Orders],
   // cookiePrefix: 'funroad',
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
