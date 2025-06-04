@@ -10,6 +10,7 @@ import sharp from 'sharp'
 import { Orders } from '@/collections/Orders'
 import { Reviews } from '@/collections/Reviews'
 import { Tenants } from '@/collections/Tenants'
+import { isSuperAdmin } from '@/lib/access'
 import type { Config } from '@/payload-types'
 import { multiTenantPlugin } from '@payloadcms/plugin-multi-tenant'
 import { Categories } from './collections/Categories'
@@ -48,7 +49,7 @@ export default buildConfig({
       tenantsArrayField: {
         includeDefaultField: false,
       },
-      userHasAccessToAllTenants: (user) => Boolean(user?.roles?.includes('super-admin')),
+      userHasAccessToAllTenants: isSuperAdmin,
     }),
     // storage-adapter-placeholder
   ],
