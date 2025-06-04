@@ -1,4 +1,5 @@
 'use client'
+import ReviewForm from '@/app/modules/library/ui/components/review-form'
 import { useTRPC } from '@/trpc/client'
 import { useSuspenseQuery } from '@tanstack/react-query'
 
@@ -12,5 +13,5 @@ export default function ReviewSidebar({ productId }: Props) {
       productId: productId,
     })
   )
-  return <div>ReviewSidebar</div>
+  return <ReviewForm productId={productId} initialData={data} />
 }
