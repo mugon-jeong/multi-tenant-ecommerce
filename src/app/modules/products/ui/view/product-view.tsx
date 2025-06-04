@@ -85,7 +85,7 @@ export default function ProductView({ productId, tenantSlug }: Props) {
           <div className={'col-span-2'}>
             <div className={'border-t lg:border-t-0 lg:border-l h-full'}>
               <div className={'flex flex-col items-center gap-2'}>
-                <CartButton tenantSlug={tenantSlug} productId={productId} />
+                <CartButton tenantSlug={tenantSlug} productId={productId} isPurchased={data.isPurchased} />
                 <Button className={'size-12'} variant={'elevated'} onClick={() => {}} disabled={false}>
                   <LinkIcon />
                 </Button>
