@@ -34,3 +34,16 @@
 - **⚡ Sonner**: 토스트 알림
 - **📅 date-fns**: 날짜 처리
 - **🔐 TypeScript**: 타입 안전성
+
+### env
+```plain text
+DATABASE_URI
+PAYLOAD_SECRET
+STRIPE_SECRET_KEY
+STRIPE_WEBHOOK_SECRET
+BLOB_READ_WRITE_TOKEN
+
+NEXT_PUBLIC_APP_URL
+NEXT_PUBLIC_ROOT_DOMAIN
+NEXT_PUBLIC_ENABLE_SUBDOMAIN_ROUTING
+```
