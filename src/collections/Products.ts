@@ -1,5 +1,6 @@
 import { isSuperAdmin } from '@/lib/access'
 import type { Tenant } from '@/payload-types'
+import {} from '@payloadcms/richtext-lexical'
 import type { CollectionConfig } from 'payload'
 
 export const Products: CollectionConfig = {
@@ -15,7 +16,7 @@ export const Products: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'name',
-    description: "You must verify your account before creating products"
+    description: 'You must verify your account before creating products',
   },
   fields: [
     {
@@ -25,7 +26,7 @@ export const Products: CollectionConfig = {
     },
     {
       name: 'description',
-      type: 'text',
+      type: 'richText',
     },
     {
       name: 'price',
@@ -60,10 +61,26 @@ export const Products: CollectionConfig = {
     },
     {
       name: 'content',
-      type: 'textarea',
+      type: 'richText',
       admin: {
         description:
           'Protected content only visible to customers after purchase. Add product documentation, downloadable files, getting started guides, and bonus materials. Supports Markdown formatting',
+      },
+    },
+    {
+      name: 'isArchived',
+      label: 'Archive',
+      type: 'checkbox',
+      admin: {
+        description: 'If checked, this product will be archived',
+      },
+    },
+    {
+      name: 'isPrivate',
+      label: 'Private',
+      type: 'checkbox',
+      admin: {
+        description: 'If checked, this product will not be shown on the public storefront',
       },
     },
   ],

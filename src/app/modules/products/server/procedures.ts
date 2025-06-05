@@ -2,6 +2,7 @@ import { sortValues } from '@/app/modules/products/search-params'
 import { DEFAULT_LIMIT } from '@/constants'
 import type { Category, Media, Tenant } from '@/payload-types'
 import { baseProcedure, createTRPCRouter } from '@/trpc/init'
+import { TRPCError } from '@trpc/server'
 import { headers as getHeaders } from 'next/headers'
 import type { Sort, Where } from 'payload'
 import { z } from 'zod'
@@ -24,6 +25,13 @@ export const productsRouter = createTRPCRouter({
           content: false,
         },
       })
+
+      if (product.isArchived) {
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'Product not found',
+        })
+      }
 
       let isPurchased = false
 
@@ -113,7 +121,9 @@ export const productsRouter = createTRPCRouter({
     )
     .query(async ({ ctx, input }) => {
       const where: Where = {
-        price: {},
+        isArchived: {
+          not_equals: true,
+        },
       }
       let sort: Sort = '-createdAt'
       if (input.sort === 'curated') {
@@ -145,6 +155,11 @@ export const productsRouter = createTRPCRouter({
       if (input.tenantSlug) {
         where['tenant.slug'] = {
           equals: input.tenantSlug,
+        }
+      } else {
+        // biome-ignore lint/complexity/useLiteralKeys: <explanation>
+        where['isPrivate'] = {
+          not_equals: true,
         }
       }
       if (input.category) {
