@@ -1,7 +1,6 @@
 'use client'
-import { clearTimeout } from 'node:timers'
+
 import { CategoriesSidebar } from '@/app/modules/home/ui/search-filters/categories-sidebar'
-import { useProductFilters } from '@/app/modules/products/hooks/use-product-filters'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useTRPC } from '@/trpc/client'
@@ -12,22 +11,23 @@ import { useEffect, useState } from 'react'
 
 interface Props {
   disabled?: boolean
+  defaultValue?: string | undefined
+  onChange?: (value: string) => Promise<URLSearchParams>
 }
 
-export default function SearchInput({ disabled }: Props) {
-  const [filters, setFilters] = useProductFilters()
-  const [searchValue, setSearchValue] = useState(filters.search)
+export default function SearchInput({ disabled, defaultValue, onChange }: Props) {
+  const [searchValue, setSearchValue] = useState(defaultValue || '')
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const trpc = useTRPC()
   const session = useQuery(trpc.auth.session.queryOptions())
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      setFilters({ search: searchValue })
+      onChange?.(searchValue)
     }, 500)
 
     return () => clearTimeout(timeoutId)
-  }, [searchValue, setFilters])
+  }, [searchValue, onChange])
   return (
     <div className={'flex items-center gap-2 w-full'}>
       <CategoriesSidebar open={isSidebarOpen} onOpenChange={setIsSidebarOpen} />

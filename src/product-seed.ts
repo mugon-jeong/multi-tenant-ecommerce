@@ -206,7 +206,7 @@ const productSeeds = async () => {
         collection: 'products',
         data: {
           name: productName,
-          description: generateDescription(productName, categoryName),
+          // description: generateDescription(productName, categoryName),
           price: getRandomPrice(9.99, 199.99),
           category: categoryId,
           refundPolicy: getRandomElement(refundPolicies) as RefundPolicy,
