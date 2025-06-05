@@ -13,6 +13,7 @@ import { Tenants } from '@/collections/Tenants'
 import { isSuperAdmin } from '@/lib/access'
 import type { Config } from '@/payload-types'
 import { multiTenantPlugin } from '@payloadcms/plugin-multi-tenant'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
 import { Products } from './collections/Products'
@@ -54,6 +55,12 @@ export default buildConfig({
       },
       userHasAccessToAllTenants: isSuperAdmin,
     }),
-    // storage-adapter-placeholder
+    vercelBlobStorage({
+      enabled: true,
+      collections: {
+        media: true,
+      },
+      token: process.env.BLOB_READ_WRITE_TOKEN,
+    }),
   ],
 })
