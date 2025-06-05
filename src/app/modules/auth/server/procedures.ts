@@ -1,15 +1,16 @@
-import { loginSchema, registerSchema } from '@/app/modules/auth/schemas'
-import { generateAuthCookie } from '@/app/modules/auth/utils'
-import { baseProcedure, createTRPCRouter } from '@/trpc/init'
-import { TRPCError } from '@trpc/server'
-import { headers as getHeaders } from 'next/headers'
+import {loginSchema, registerSchema} from '@/app/modules/auth/schemas'
+import {generateAuthCookie} from '@/app/modules/auth/utils'
+import {baseProcedure, createTRPCRouter} from '@/trpc/init'
+import {TRPCError} from '@trpc/server'
+import {headers as getHeaders} from 'next/headers'
+import {stripe} from "@/lib/stripe";
 
 export const authRouter = createTRPCRouter({
-  session: baseProcedure.query(async ({ ctx }) => {
+  session: baseProcedure.query(async ({ctx}) => {
     const headers = await getHeaders()
-    return await ctx.db.auth({ headers })
+    return await ctx.db.auth({headers})
   }),
-  register: baseProcedure.input(registerSchema).mutation(async ({ input, ctx }) => {
+  register: baseProcedure.input(registerSchema).mutation(async ({input, ctx}) => {
     const existingData = await ctx.db.find({
       collection: 'users',
       limit: 1,
@@ -26,12 +27,22 @@ export const authRouter = createTRPCRouter({
         message: 'Username already taken',
       })
     }
+
+    const account = await stripe.accounts.create({})
+
+    if (!account) {
+      throw new TRPCError({
+        code: "BAD_REQUEST",
+        message: "Failed to create Stripe account"
+      })
+    }
+
     const tenant = await ctx.db.create({
       collection: 'tenants',
       data: {
         name: input.username,
         slug: input.username,
-        stripeAccountId: 'test',
+        stripeAccountId: account.id,
       },
     })
     await ctx.db.create({
@@ -65,7 +76,7 @@ export const authRouter = createTRPCRouter({
       value: data.token,
     })
   }),
-  login: baseProcedure.input(loginSchema).mutation(async ({ input, ctx }) => {
+  login: baseProcedure.input(loginSchema).mutation(async ({input, ctx}) => {
     const data = await ctx.db.login({
       collection: 'users',
       data: {
