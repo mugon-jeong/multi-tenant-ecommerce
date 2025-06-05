@@ -6,8 +6,10 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function generateTenantURL(tenantSlug: string) {
+  const isDevelopment = process.env.NODE_ENV === 'development'
+  const isSubdomainRoutingEnabled = process.env.NEXT_PUBLIC_ENABLE_SUBDOMAIN_ROUTING === 'true'
   // In development mode, use mormal routing
-  if (process.env.NODE_ENV === 'development') {
+  if (isDevelopment || !isSubdomainRoutingEnabled) {
     return `/tenants/${tenantSlug}`
   }
   const protocol = 'https'
