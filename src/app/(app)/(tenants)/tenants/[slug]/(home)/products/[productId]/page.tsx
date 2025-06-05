@@ -6,6 +6,9 @@ import { Suspense } from 'react'
 interface Props {
   params: Promise<{ productId: string; slug: string }>
 }
+
+export const dynamic = 'force-dynamic'
+
 export default async function Page({ params }: Props) {
   const { slug, productId } = await params
   const queryClient = getQueryClient()
